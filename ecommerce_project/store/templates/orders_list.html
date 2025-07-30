@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Order History
+{% endblock %}
+
+{% block content %}
+  <div class="text-center">
+    <br>
+    <h1 class="text-center product_title">
+      Order History
+    </h1>
+    <br>
+    {% if order_details %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Order Number</th>
+            <th>Order Date</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in order_details %}
+            <tr>
+              <td>{{ order.id }}</td>
+              <td>{{ order.created|date:"d M Y" }}</td>
+              <td>{{ order.total }}</td>
+              <td>
+                {% if order.shipping_status == 'delivered' %}
+                  <span style="color:green;">✔ {{ order.get_shipping_status_display }}</span>
+                {% elif order.shipping_status == 'shipped' %}
+                  <span style="color:orange;">📦 {{ order.get_shipping_status_display }}</span>
+                {% elif order.shipping_status == 'in_transit' %}
+                  <span style="color:orange;">⏳ {{ order.get_shipping_status_display }}</span>
+                {% elif order.shipping_status == 'order_received' %}
+                  <span style="color:blue;">📥 {{ order.get_shipping_status_display }}</span>
+                {% else %}
+                  {{ order.get_shipping_status_display }}
+                {% endif %}
+              </td>
+              <td><i class="fas fa-check"></i>&nbsp;Complete</td>
+              <td><a href="{% url 'order_detail' order.id %}">View Order</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>You have not placed any orders yet.
+        <br><br>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Continue shopping</a>
+      </p>
+    {% endif %}
+  </div>
+  <br><br>
+{% endblock %}

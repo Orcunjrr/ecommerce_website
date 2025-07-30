@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Add Product</h4>
+        </div>
+        <div class="card-body">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+              <label for="id_name">Name</label>
+              {{ form.name|add_class:"form-control" }}
+            </div>
+
+            <div class="form-group">
+              <label for="id_slug">Slug</label>
+              {{ form.slug|add_class:"form-control" }}
+            </div>
+
+            <div class="form-group">
+              <label for="id_description">Description</label>
+              {{ form.description|add_class:"form-control" }}
+            </div>
+
+            <div class="form-group">
+              <label for="id_category">Category</label>
+              {{ form.category|add_class:"form-control" }}
+            </div>
+
+            <div class="form-group">
+              <label for="id_price">Price</label>
+              {{ form.price|add_class:"form-control" }}
+            </div>
+
+            <div class="form-group">
+              <label for="id_image">Image</label>
+              {{ form.image|add_class:"form-control-file" }}
+            </div>
+
+            <div class="form-group">
+              <label for="id_base_product">Main Product It Is Affiliated To (optional)</label>
+              {{ form.base_product|add_class:"form-control" }}
+            </div>
+
+           <small class="form-text text-muted">
+            If this product is a variant of another existing product, select that parent product here.
+           </small>
+
+            <div class="form-group">
+              <label for="id_stock">Stock</label>
+              {{ form.stock|add_class:"form-control" }}
+            </div>
+
+            <div class="form-check mb-3">
+              {{ form.available|add_class:"form-check-input" }}
+              <label class="form-check-label" for="id_available">Available</label>
+            </div>
+
+            <button type="submit" class="btn btn-success">Save Product</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

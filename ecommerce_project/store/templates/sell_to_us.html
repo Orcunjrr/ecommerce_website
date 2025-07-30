@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Sell Your Product</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_product_name">Product Name</label>
+      {{ form.product_name|add_class:"form-control" }}
+    </div>
+
+    <div class="form-group">
+      <label for="id_description">Description</label>
+      {{ form.description|add_class:"form-control" }}
+    </div>
+
+    <div class="form-group">
+      <label for="id_offered_price">Price Offer($)</label>
+      {{ form.offered_price|add_class:"form-control" }}
+    </div>
+
+    <div class="form-group">
+      <label for="id_image">Product Image(Optional)</label>
+      {{ form.image|add_class:"form-control-file" }}
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">Send Offer</button>
+  </form>
+</div>
+{% endblock %}
